@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fatec.hello.dtos.ProductRequest;
 import com.fatec.hello.entities.Product;
+import com.fatec.hello.mappers.ProductMapper;
 import com.fatec.hello.repositories.ProductRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -31,7 +33,15 @@ public class ProductService {
 			throw new EntityNotFoundException("Produto não existe");
     }
 
-    public Product saveProduct(Product product) {
-        return repository.save(product);
+    public Product saveProduct(ProductRequest request) {
+        return repository.save(ProductMapper.toEntity(request));
+    }
+
+    public void updateProduct(ProductRequest request, long id){
+        Product aux = repository.getReferenceById(id);
+        aux.setName(request.name());
+        aux.setPrice(request.price());
+
+        repository.save(aux);
     }
 }

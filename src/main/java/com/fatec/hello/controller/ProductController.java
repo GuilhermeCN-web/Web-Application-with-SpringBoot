@@ -3,6 +3,7 @@ package com.fatec.hello.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fatec.hello.dtos.ProductRequest;
 import com.fatec.hello.entities.Product;
 import com.fatec.hello.services.ProductService;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -42,14 +44,20 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product)
+    public ResponseEntity<Product> saveProduct(@RequestBody ProductRequest request)
     {
-        Product newProduct = service.saveProduct(product);
+        Product newProduct = service.saveProduct(request);
         URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(newProduct.getId())
             .toUri();
         return ResponseEntity.created(location).body(newProduct);
+    }
+    @PutMapping("{id}")
+    public ResponseEntity<Void> updateProduct(@PathVariable long id, @RequestBody ProductRequest request)
+    {
+        service.updateProduct(request, id);
+        return ResponseEntity.noContent().build();
     }
 }
