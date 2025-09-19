@@ -7,6 +7,8 @@ import com.fatec.hello.dtos.ProductRequest;
 import com.fatec.hello.dtos.ProductResponse;
 import com.fatec.hello.services.ProductService;
 
+import jakarta.validation.Valid;
+
 import java.net.URI;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponse> saveProduct(@RequestBody ProductRequest request)
+    public ResponseEntity<ProductResponse> saveProduct(@Valid @RequestBody ProductRequest request)
     {
         ProductResponse newProduct = service.saveProduct(request);
         URI location = ServletUriComponentsBuilder
@@ -55,7 +57,7 @@ public class ProductController {
         return ResponseEntity.created(location).body(newProduct);
     }
     @PutMapping("{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable long id, @RequestBody ProductRequest request)
+    public ResponseEntity<Void> updateProduct(@PathVariable long id, @Valid @RequestBody ProductRequest request)
     {
         service.updateProduct(request, id);
         return ResponseEntity.noContent().build();
