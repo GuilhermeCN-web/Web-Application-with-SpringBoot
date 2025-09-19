@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fatec.hello.dtos.ProductRequest;
-import com.fatec.hello.entities.Product;
+import com.fatec.hello.dtos.ProductResponse;
 import com.fatec.hello.services.ProductService;
 
 import java.net.URI;
@@ -28,12 +28,12 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping    
-    public ResponseEntity<List<Product>> getProducts() {
-        return ResponseEntity.ok(service.getAllProducts());
+    public ResponseEntity<List<ProductResponse>> getProducts() {
+        return ResponseEntity.ok(service.getProducts());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable long id) {
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable long id) {
         return ResponseEntity.ok(service.getProductById(id));
     }
 
@@ -44,13 +44,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody ProductRequest request)
+    public ResponseEntity<ProductResponse> saveProduct(@RequestBody ProductRequest request)
     {
-        Product newProduct = service.saveProduct(request);
+        ProductResponse newProduct = service.saveProduct(request);
         URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(newProduct.getId())
+            .buildAndExpand(newProduct.id())
             .toUri();
         return ResponseEntity.created(location).body(newProduct);
     }
