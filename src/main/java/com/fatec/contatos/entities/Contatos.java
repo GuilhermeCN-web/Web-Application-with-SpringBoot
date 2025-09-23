@@ -1,4 +1,4 @@
-package com.fatec.hello.entities;
+package com.fatec.contatos.entities;
 
 import java.io.Serializable;
 
@@ -10,14 +10,16 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "TBL_PRODUCT")
-public class Product implements Serializable{
+public class Contatos implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-    private Double price;
+    private String email;
+    private String phoneNumber;
+    private String address;
+    private int age;
 
     public Long getId() {
         return id;
@@ -35,12 +37,36 @@ public class Product implements Serializable{
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setEmail(String email) {
+        this.email = email;
+    }  
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -59,7 +85,7 @@ public class Product implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Product other = (Product) obj;
+        Contatos other = (Contatos) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

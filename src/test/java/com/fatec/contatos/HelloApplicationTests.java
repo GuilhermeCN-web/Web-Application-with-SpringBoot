@@ -1,10 +1,10 @@
-package com.fatec.hello;
+package com.fatec.contatos;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HelloApplicationTests {
+class ContatosTests {
 
 	@Test
 	void contextLoads() {

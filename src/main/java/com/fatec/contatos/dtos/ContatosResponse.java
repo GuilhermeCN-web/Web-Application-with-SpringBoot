@@ -1,15 +1,17 @@
-package com.fatec.hello.dtos;
+package com.fatec.contatos.dtos;
 
 import java.util.Map;
 
-public record ProductResponse(
+public record ContatosResponse(
         Long id,
         String name,
-        Double price
+        String email,
+        String phoneNumber,
+        String address,
+        int age
 ) {
 
     public Map<String, ?> getId() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getId'");
     }
     

@@ -1,11 +1,11 @@
-package com.fatec.hello.controller;
+package com.fatec.contatos.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fatec.hello.dtos.ProductRequest;
-import com.fatec.hello.dtos.ProductResponse;
-import com.fatec.hello.services.ProductService;
+import com.fatec.contatos.dtos.ContatosRequest;
+import com.fatec.contatos.dtos.ContatosResponse;
+import com.fatec.contatos.services.ContatosService;
 
 import jakarta.validation.Valid;
 
@@ -24,18 +24,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("products")
-public class ProductController {
+public class ContatosController {
 
     @Autowired
-    private ProductService service;
+    private ContatosService service;
 
     @GetMapping    
-    public ResponseEntity<List<ProductResponse>> getProducts() {
+    public ResponseEntity<List<ContatosResponse>> getProducts() {
         return ResponseEntity.ok(service.getProducts());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable long id) {
+    public ResponseEntity<ContatosResponse> getProductById(@PathVariable long id) {
         return ResponseEntity.ok(service.getProductById(id));
     }
 
@@ -46,9 +46,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponse> saveProduct(@Valid @RequestBody ProductRequest request)
+    public ResponseEntity<ContatosResponse> saveProduct(@Valid @RequestBody ContatosRequest request)
     {
-        ProductResponse newProduct = service.saveProduct(request);
+        ContatosResponse newProduct = service.saveProduct(request);
         URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
             .path("/{id}")
@@ -57,7 +57,7 @@ public class ProductController {
         return ResponseEntity.created(location).body(newProduct);
     }
     @PutMapping("{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable long id, @Valid @RequestBody ProductRequest request)
+    public ResponseEntity<Void> updateProduct(@PathVariable long id, @Valid @RequestBody ContatosRequest request)
     {
         service.updateProduct(request, id);
         return ResponseEntity.noContent().build();
